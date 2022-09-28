@@ -19,7 +19,7 @@ export default function Home() {
   }
 
   return (
-    <div className='container mx-auto my-7'>
+    <div className='container mx-10 my-7'>
       {error && <div>Failed to load {error.toString()}</div>}
       {
         !data ? <div>Loading...</div>
