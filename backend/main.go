@@ -1,37 +1,41 @@
 package main
 
 import (
+	"fmt"
+	"net/http"
+	"os"
+
+	"github.com/WibuSOS/sinarmas/database"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	_ "github.com/joho/godotenv/autoload"
-	"net/http"
-	"os"
 )
 
 type DataRequest struct {
 	Text string `json:"text"`
 }
 
-var db []string
-
 func handler(c *gin.Context) {
+	db := database.GetDB()
 	c.JSON(http.StatusOK, gin.H{
-		"data": db,
+		"data": db.Data,
 	})
 }
 
 func postHandler(c *gin.Context) {
 	var data DataRequest
+	db := database.GetDB()
 	if err := c.ShouldBindJSON(&data); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	db = append(db, data.Text)
+	db.Append(data.Text)
+	fmt.Println(db)
 	c.JSON(http.StatusOK, gin.H{"message": "data berhasil terkirim", "data": data.Text})
 }
 
 func main() {
-	db = make([]string, 0)
+	database.StartDB()
 	r := gin.Default()
 	r.Use(cors.New(cors.Config{
 		AllowOrigins: []string{"*"},
