@@ -1,4 +1,4 @@
-module github.com/WibuSOS/sinarmas-pusilkom-tutorial
+module github.com/WibuSOS/sinarmas
 
 go 1.19
 
