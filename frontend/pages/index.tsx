@@ -19,7 +19,7 @@ export default function Home() {
   }
 
   return (
-    <div>
+    <div className='container mx-auto my-7'>
       {error && <div>Failed to load {error.toString()}</div>}
       {
         !data ? <div>Loading...</div>
@@ -67,7 +67,7 @@ function Input({ onSuccess }) {
       {data && <p>success: {data}</p>}
       <form onSubmit={handleSubmit}>
         <input name="data" type="text" />
-        <button >Submit</button>
+        <button className='bg-green-500 rounded-lg'>Submit</button>
       </form>
     </div>
   )

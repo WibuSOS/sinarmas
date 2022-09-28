@@ -1,4 +1,4 @@
-name: deployment
+name: essential jobs
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 jobs:
   check-quality:
     runs-on: ubuntu-latest
-    name: A job to check my code quality
+    name: Code quality check job
     steps:
     - name: Check code meets quality standards
       id: codiga
@@ -27,6 +27,7 @@ jobs:
   
   heroku:
     runs-on: ubuntu-latest
+    name: Deployment job
     steps:
       - uses: actions/checkout@v3
       - name: Add api remote origin
