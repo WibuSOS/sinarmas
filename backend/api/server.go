@@ -1,9 +1,11 @@
 package api
 
 import (
+	"log"
+	"os"
+
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
-	"os"
 )
 
 type server struct {
@@ -24,6 +26,6 @@ func (s *server) RunServer() {
 	s.SetupRouter()
 	port := os.Getenv("PORT")
 	if err := s.Router.Run(":" + port); err != nil {
-		panic(err)
+		log.Panicln(err.Error())
 	}
 }

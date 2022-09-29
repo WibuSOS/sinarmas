@@ -1,6 +1,7 @@
 package todos
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -17,6 +18,7 @@ func NewHandler(service Service) *Handler {
 func (h *Handler) GetTodos(c *gin.Context) {
 	todos, status, err := h.Service.GetTodos()
 	if err != nil {
+		log.Println(err.Error())
 		c.JSON(status, gin.H{
 			"message": err.Error(),
 		})
@@ -32,12 +34,14 @@ func (h *Handler) GetTodos(c *gin.Context) {
 func (h *Handler) CreateTodo(c *gin.Context) {
 	var req DataRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
+		log.Println(err.Error())
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	res, status, err := h.Service.CreateTodos(req)
 	if err != nil {
+		log.Println(err.Error())
 		c.JSON(status, gin.H{
 			"message": err.Error(),
 		})
@@ -55,6 +59,7 @@ func (h *Handler) CheckTodo(c *gin.Context) {
 	status, err := h.Service.CheckTodo(taskId)
 
 	if err != nil {
+		log.Println(err.Error())
 		c.JSON(status, gin.H{
 			"message": err.Error(),
 		})
@@ -71,6 +76,7 @@ func (h *Handler) DeleteTodo(c *gin.Context) {
 	status, err := h.Service.DeleteTodo(taskId)
 
 	if err != nil {
+		log.Println(err.Error())
 		c.JSON(status, gin.H{
 			"message": err.Error(),
 		})
