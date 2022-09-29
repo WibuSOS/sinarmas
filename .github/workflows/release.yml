@@ -29,14 +29,15 @@ jobs:
   test:
     runs-on: ubuntu-latest
     name: Test job
+    defaults:
+      run:
+        working-directory: ./backend
     steps:
       - uses: actions/checkout@v3
       - name: Set up Go
         uses: actions/setup-go@v3
         with:
           go-version: 1.19
-      - name: Change dir
-        run: cd backend/
       - name: Check dir
         run: ls
       - name: Install dependencies
