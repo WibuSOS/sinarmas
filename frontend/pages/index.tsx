@@ -23,8 +23,18 @@ export default function Home() {
       const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/updateCheck/${e.currentTarget.value}`, {
         method: 'PATCH',
       });
-      const data = await res.json();
-      setData(data.message);
+      getData();
+    }
+    catch (error) {
+      setError(error);
+    }
+  }
+
+  const handleDelete = async (e) => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${e.currentTarget.value}`, {
+        method: 'DELETE',
+      });
       getData();
     }
     catch (error) {
@@ -47,6 +57,7 @@ export default function Home() {
         <div key={index}>
           <input type="checkbox" defaultChecked={item.done} onChange={handleCheck} value={item.ID} />
           <span> {item.ID}. Task: {item.task}</span>
+          <button value={item.ID} onClick={handleDelete} className="bg-red-500 rounded-lg">Delete</button>
         </div>
       ))}
     </div>

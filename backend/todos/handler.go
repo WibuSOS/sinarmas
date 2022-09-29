@@ -52,7 +52,6 @@ func (h *Handler) CreateTodo(c *gin.Context) {
 
 func (h *Handler) CheckTodo(c *gin.Context) {
 	taskId := c.Param("task_id")
-
 	status, err := h.Service.CheckTodo(taskId)
 
 	if err != nil {
@@ -64,5 +63,21 @@ func (h *Handler) CheckTodo(c *gin.Context) {
 
 	c.JSON(status, gin.H{
 		"message": "success update checklist " + taskId,
+	})
+}
+
+func (h *Handler) DeleteTodo(c *gin.Context) {
+	taskId := c.Param("task_id")
+	status, err := h.Service.DeleteTodo(taskId)
+
+	if err != nil {
+		c.JSON(status, gin.H{
+			"message": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(status, gin.H{
+		"message": "success delete checklist " + taskId,
 	})
 }

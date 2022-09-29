@@ -18,4 +18,5 @@ func (s *server) SetupRouter() {
 	s.Router.GET("/", todosHandler.GetTodos)
 	s.Router.POST("/send", todosHandler.CreateTodo)
 	s.Router.PATCH("/updateCheck/:task_id", todosHandler.CheckTodo)
+	s.Router.DELETE("/:task_id", todosHandler.DeleteTodo)
 }

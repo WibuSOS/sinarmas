@@ -11,6 +11,7 @@ type Repository interface {
 	GetTodos() ([]models.Todos, error)
 	CreateTodos(task string) (models.Todos, error)
 	CheckTodo(taskId string) error
+	DeleteTodo(taskId string) error
 }
 
 type repository struct {
@@ -59,6 +60,19 @@ func (r *repository) CheckTodo(taskId string) error {
 	} else {
 		res = r.db.Model(&todo).Where("ID = ?", idConv).Update("Done", true)
 	}
+
+	if res.Error != nil {
+		return res.Error
+	}
+
+	return nil
+}
+
+func (r *repository) DeleteTodo(taskId string) error {
+	idConv, _ := strconv.Atoi(taskId)
+	todo := models.Todos{}
+
+	res := r.db.Where("ID = ?", idConv).Delete(&todo)
 
 	if res.Error != nil {
 		return res.Error

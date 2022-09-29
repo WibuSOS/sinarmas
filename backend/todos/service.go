@@ -9,6 +9,7 @@ type Service interface {
 	GetTodos() ([]models.Todos, int, error)
 	CreateTodos(req DataRequest) (models.Todos, int, error)
 	CheckTodo(taskId string) (int, error)
+	DeleteTodo(taskId string) (int, error)
 }
 
 type service struct {
@@ -39,6 +40,15 @@ func (s *service) CreateTodos(req DataRequest) (models.Todos, int, error) {
 
 func (s *service) CheckTodo(taskId string) (int, error) {
 	err := s.repo.CheckTodo(taskId)
+	if err != nil {
+		return http.StatusInternalServerError, err
+	}
+
+	return http.StatusOK, nil
+}
+
+func (s *service) DeleteTodo(taskId string) (int, error) {
+	err := s.repo.DeleteTodo(taskId)
 	if err != nil {
 		return http.StatusInternalServerError, err
 	}
