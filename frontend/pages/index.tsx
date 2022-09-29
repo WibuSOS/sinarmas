@@ -18,6 +18,30 @@ export default function Home() {
     }
   }
 
+  const handleCheck = async (e) => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/updateCheck/${e.currentTarget.value}`, {
+        method: 'PATCH',
+      });
+      getData();
+    }
+    catch (error) {
+      setError(error);
+    }
+  }
+
+  const handleDelete = async (e) => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${e.currentTarget.value}`, {
+        method: 'DELETE',
+      });
+      getData();
+    }
+    catch (error) {
+      setError(error);
+    }
+  }
+
   return (
     <div className='container mx-10 my-7'>
       {error && <div>Failed to load {error.toString()}</div>}
@@ -30,7 +54,11 @@ export default function Home() {
 
       <Input onSuccess={getData} />
       {data?.data && data?.data?.map((item, index) => (
-        <p key={index}>{item}</p>
+        <div key={index}>
+          <input type="checkbox" defaultChecked={item.done} onChange={handleCheck} value={item.ID} />
+          <span> {item.ID}. Task: {item.task}</span>
+          <button value={item.ID} onClick={handleDelete} className="bg-red-500 rounded-lg">Delete</button>
+        </div>
       ))}
     </div>
   )
@@ -44,7 +72,7 @@ function Input({ onSuccess }) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const body = {
-      text: formData.get("data")
+      task: formData.get("data")
     }
 
     try {
