@@ -19,7 +19,6 @@ func NewService(repo Repository) *service {
 }
 
 func (s *service) GetTodos() ([]models.Todos, int, error) {
-
 	todos, err := s.repo.GetTodos()
 	if err != nil {
 		return nil, http.StatusInternalServerError, err
@@ -29,7 +28,6 @@ func (s *service) GetTodos() ([]models.Todos, int, error) {
 }
 
 func (s *service) CreateTodos(req DataRequest) (models.Todos, int, error) {
-
 	todo, err := s.repo.CreateTodos(req.Task)
 	if err != nil {
 		return models.Todos{}, http.StatusInternalServerError, err
