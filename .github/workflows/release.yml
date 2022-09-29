@@ -25,6 +25,14 @@ jobs:
         project_name: ''
         max_timeout_sec: '600'
   
+  test:
+    runs-on: ubuntu-latest
+    name: Test job
+    steps:
+      - uses: actions/checkout@v3
+      - name: Assert test
+        run: go test -cover -v ./todos
+  
   heroku:
     runs-on: ubuntu-latest
     name: Deployment job
