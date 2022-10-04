@@ -45,7 +45,7 @@ jobs:
       - name: Create User PostgreSQL on Ubuntu
         run: sudo -u postgres createuser -d -e -l test
       - name: Login User PostgreSQL on Ubuntu
-        run: psql -U test  -h localhost
+        run: psql -U test -h localhost
       # - name: Install dependencies
       #   run: go get .
       # - name: Build
