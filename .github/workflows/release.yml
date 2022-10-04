@@ -43,7 +43,7 @@ jobs:
           sudo systemctl start postgresql.service
           pg_isready
       - name: Create User PostgreSQL on Ubuntu
-        run: sudo -u postgres psql createuser -d -e -l -s test
+        run: sudo -u postgres createuser -d -e -l -s test
       - name: Login User PostgreSQL on Ubuntu
         run: psql -U test
       # - name: Install dependencies
