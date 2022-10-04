@@ -43,7 +43,7 @@ jobs:
           sudo systemctl start postgresql.service
           pg_isready
       - name: Check PostgreSQL on Ubuntu
-        run: psql -U postgres -w postgres
+        run: psql
       # - name: Install dependencies
       #   run: go get .
       # - name: Build
